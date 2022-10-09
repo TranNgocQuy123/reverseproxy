@@ -1,29 +1,27 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: reverseproxy
   labels:
     app: reverseproxy
-  name: reverseproxy
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reverseproxy
   template:
     metadata:
       labels:
         app: reverseproxy
     spec:
       containers:
-      - image: hiennv00/reverseproxy
-        name: reverseproxy
-        imagePullPolicy: Always          
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "1024Mi"
-            cpu: "500m"       
+      - name: reverseproxy
+        image: hiennv00/reverseproxy
         ports:
         - containerPort: 8080
-      restartPolicy: Always
-
-
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
