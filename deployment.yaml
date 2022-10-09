@@ -1,15 +1,15 @@
-apiVersion: extensions/v1
+apiVersion: app/v1
 kind: Deployment
 metadata:
   labels:
-    service: reverseproxy
+    app: reverseproxy
   name: reverseproxy
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        service: reverseproxy
+        app: reverseproxy
     spec:
       containers:
       - image: hiennv00/reverseproxy
