@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  lint-app:
+    docker:
+      - image: circleci/node:14.15.0
+    steps:
+      - checkout
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: feed-circle
+          command: |
+            sudo curl -LO https://nodejs.org/dist/v14.15.0/node-v14.15.0-linux-x64.tar.xz
+            sudo tar -xvf node-v14.15.0-linux-x64.tar.xz
+            sudo cp -r node-v14.15.0-linux-x64/{bin,include,lib,share} /usr/
+            node --version => v14.15.0
+            sudo apt install nodejs
+            docker login -u hiennv00 -p $DOCKERPASS
+            docker build -t udagram-reverseproxy ./udagram-reverseproxy
+            docker tag udagram-reverseproxy hiennv00/udagram-reverseproxy:lasted
+            docker push hiennv00/udagram-reverseproxy:lasted
+workflows:
+  default:
+    jobs:
+      - lint-app
+      - build-docker:
+          requires: [lint-app]
