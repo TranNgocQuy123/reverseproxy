@@ -19,7 +19,7 @@ jobs:
             node --version => v14.15.0
             sudo apt install nodejs
             docker login -u hiennv00 -p $DOCKERPASS
-            docker build -t udagram-reverseproxy ./udagram-reverseproxy
+            docker build -t udagram-reverseproxy .
             docker tag udagram-reverseproxy hiennv00/udagram-reverseproxy:lasted
             docker push hiennv00/udagram-reverseproxy:lasted
 workflows:
