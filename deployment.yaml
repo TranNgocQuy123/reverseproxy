@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: udagram-reverseproxy
-        image: docker.io/hiennv00/udagram-reverseproxy:lasted
+        image: docker.io/hiennv00/udagram-reverseproxy:v1
         ports:
         - containerPort: 80
         resources:
           limits:
-            cpu: 500m
+            cpu: 1000m
           requests:
-            cpu: 200m
+            cpu: 500m
