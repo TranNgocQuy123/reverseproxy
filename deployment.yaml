@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udagram-reserveproxy
+  name: udagram-reverseproxy
 spec:
   selector:
     matchLabels:
-      run: udagram-reserveproxy
+      run: udagram-reverseproxy
   replicas: 2
   template:
     metadata:
       labels:
-        run: udagram-reserveproxy
+        run: udagram-reverseproxy
     spec:
       containers:
-      - name: udagram-reserveproxy
-        image: docker.io/hiennv00/udagram-reserveproxy:lasted
+      - name: udagram-reverseproxy
+        image: docker.io/hiennv00/udagram-reverseproxy:lasted
         ports:
         - containerPort: 80
         resources:
